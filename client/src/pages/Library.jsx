@@ -3,27 +3,53 @@ import Navbar from '../components/Navbar';
 import SongCard from '../components/SongCard';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Heart, Plus } from 'lucide-react'; // <-- Imported Plus icon
+import { Heart, Plus, ListMusic, Check, Wand2 } from 'lucide-react';
 import './Library.css';
 import './Home.css';
 
 const Library = () => {
   const [likedSongs, setLikedSongs] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+  const [isCreating, setIsCreating] = useState(false);
+  const [newPlaylistName, setNewPlaylistName] = useState('');
   const { user } = useAuth();
 
   useEffect(() => {
-    const fetchLikedSongs = async () => {
-      if (!user) return; // Wait until user is logged in
+    const fetchLibraryData = async () => {
+      if (!user) return; 
       try {
-        // FIXED: Updated to match your backend songRoutes.js endpoint
-        const { data } = await api.get('/songs/liked');
-        setLikedSongs(data);
+        const [likedRes, playlistsRes] = await Promise.all([
+          api.get('/songs/liked'),
+          api.get('/playlists') 
+        ]);
+        
+        setLikedSongs(likedRes.data);
+        setPlaylists(playlistsRes.data);
       } catch (error) {
-        console.error("Error fetching liked songs", error);
+        console.error("Error fetching library data", error);
       }
     };
-    fetchLikedSongs();
+    fetchLibraryData();
   }, [user]);
+
+  const handleCreateSubmit = async () => {
+    if (!newPlaylistName.trim()) {
+      setIsCreating(false);
+      return;
+    }
+
+    try {
+      const { data } = await api.post('/playlists', { name: newPlaylistName });
+      
+      // Instantly add the new playlist to the UI
+      setPlaylists([...playlists, data]);
+      setNewPlaylistName('');
+      setIsCreating(false);
+    } catch (error) {
+      console.error("Error creating playlist:", error);
+      alert("Failed to create playlist. Check your backend server.");
+    }
+  };
 
   if (!user) {
     return (
@@ -42,13 +68,33 @@ const Library = () => {
     <div className="library-container">
       <Navbar />
       
-      {/* NEW: Top Action Bar for Library (Crucial for Mobile Users) */}
+      {/* Top Action Bar with Inline Creation */}
       <div className="library-top-bar">
         <h2 style={{ color: 'white', margin: 0 }}>Your Library</h2>
-        <button className="create-playlist-btn" onClick={() => alert('AI Magic Namer coming soon!')}>
-          <Plus size={20} />
-          <span>Create Playlist</span>
-        </button>
+        
+        {isCreating ? (
+          <div className="inline-create-container">
+            <div className="inline-input-wrapper">
+              <input
+                type="text"
+                placeholder="Playlist name..."
+                value={newPlaylistName}
+                onChange={(e) => setNewPlaylistName(e.target.value)}
+                autoFocus
+                onKeyDown={(e) => e.key === 'Enter' && handleCreateSubmit()}
+              />
+              <Wand2 size={14} color="#facc15" />
+            </div>
+            <button className="inline-submit-btn" onClick={handleCreateSubmit}>
+              <Check size={16} color="white" />
+            </button>
+          </div>
+        ) : (
+          <button className="create-playlist-btn" onClick={() => setIsCreating(true)}>
+            <Plus size={20} />
+            <span>Create Playlist</span>
+          </button>
+        )}
       </div>
 
       <div className="library-header">
@@ -63,9 +109,32 @@ const Library = () => {
       </div>
       
       <div className="library-content">
+        
+        {/* User Playlists Section */}
+        {playlists.length > 0 && (
+          <div style={{ marginBottom: '40px' }}>
+            <h3 style={{ color: 'white', marginBottom: '20px' }}>Your Playlists</h3>
+            <div className="cards-grid">
+              {playlists.map((playlist) => (
+                <div key={playlist._id} className="song-card">
+                  <div className="song-image-container" style={{ backgroundColor: '#282828', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ListMusic size={48} color="#b3b3b3" />
+                  </div>
+                  <div className="song-text-info" style={{ width: '100%' }}>
+                    <p className="card-title">{playlist.name}</p>
+                    <p className="card-artist">By {user.name}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Liked Songs Section */}
+        <h3 style={{ color: 'white', marginBottom: '20px' }}>Liked Songs</h3>
         <div className="cards-grid">
           {likedSongs.length === 0 ? (
-            <p style={{ color: '#b3b3b3' }}>You haven't liked any songs yet. Go find some music!</p>
+            <p style={{ color: '#b3b3b3' }}>You haven't liked any songs yet.</p>
           ) : (
             likedSongs.map((song) => (
               <SongCard 
@@ -76,6 +145,7 @@ const Library = () => {
             ))
           )}
         </div>
+        
       </div>
     </div>
   );

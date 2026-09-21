@@ -49,3 +49,9 @@
     */
   }
 }
+@media (max-width: 768px) {
+  /* Replace with your exact chat logo/widget class name */
+  .chat-logo-class {
+    display: none !important;
+  }
+}

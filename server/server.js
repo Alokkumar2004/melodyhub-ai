@@ -16,7 +16,15 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000', credentials: true }));
+// Find your cors setup and change it to look like this:
+
+app.use(cors({
+    origin: [
+        'http://localhost:3000', 
+        'https://melodyhub-ai.vercel.app' // <-- Add your Vercel URL here (No trailing slash!)
+    ],
+    credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 

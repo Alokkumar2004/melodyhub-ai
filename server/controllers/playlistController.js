@@ -14,7 +14,7 @@ export const generateMagicName = async (req, res) => {
                     content: 'You are a creative music DJ. Generate a short, catchy, 2-3 word playlist name. Reply with ONLY the name, no quotes, no extra text.' 
                 }
             ],
-            model: 'llama3-8b-8192', 
+            model: 'llama-3.1-8b-instant', 
         });
 
         // Clean up the AI's response to ensure no quotes are included

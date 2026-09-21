@@ -2,11 +2,11 @@
 .liked-songs-page {
   padding: 24px 32px;
   width: 100%;
-  height: auto !important;          /* Allows natural page scrolling */
+  height: auto !important;          
   min-height: 100vh;
-  overflow-y: visible !important;   /* Prevents the scroll trap */
+  overflow-y: visible !important;   
   box-sizing: border-box;
-  padding-bottom: 180px;            /* Crucial: leaves room for bottom player */
+  padding-bottom: 180px;            
   background: linear-gradient(to bottom, #202020 0%, #121212 400px);
 }
 
@@ -15,7 +15,7 @@
   display: flex;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -29,7 +29,7 @@
   justify-content: center;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  flex-shrink: 0; /* Prevents the icon from getting squished */
+  flex-shrink: 0; 
 }
 
 .liked-header-info {
@@ -59,32 +59,75 @@
   margin: 0;
 }
 
-/* --- CONTENT GRID & LIST --- */
+/* --- CONTENT LIST (Premium Row Layout) --- */
 .liked-songs-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
 }
 
-/* --- FIX FOR MASSIVE THUMBNAILS --- */
-.liked-songs-grid img {
+/* Forces any child component (like SongCard) to behave as a sleek horizontal row */
+.liked-songs-grid > div {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  background-color: transparent !important;
+  transition: background-color 0.2s ease !important;
   width: 100% !important;
-  max-width: 180px !important; /* Locks card images from blowing up */
-  aspect-ratio: 1 / 1;
-  object-fit: cover !important;
-  border-radius: 4px;
+  box-sizing: border-box !important;
+  cursor: pointer;
 }
 
-/* If you are rendering rows instead of cards in this view, this forces them to list size */
-.row-song-img,
-.liked-songs-grid .song-table-row img {
+.liked-songs-grid > div:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Perfect square list thumbnails */
+.liked-songs-grid img {
   width: 48px !important;
   height: 48px !important;
   min-width: 48px !important;
-  max-width: 48px !important;
-  border-radius: 4px;
+  min-height: 48px !important;
   object-fit: cover !important;
-  flex-shrink: 0;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+  margin: 0 !important; 
+}
+
+/* Formats the text wrapper inside the row */
+.liked-songs-grid > div > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  overflow: hidden;
+}
+
+/* Ensures titles and artists truncate cleanly if they are too long */
+.liked-songs-grid h3, 
+.liked-songs-grid p {
+  margin: 0 !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100%;
+}
+
+.liked-songs-grid h3 {
+  font-size: 15px !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.liked-songs-grid p {
+  font-size: 13px !important;
+  color: #b3b3b3 !important;
 }
 
 /* --- STATES --- */
@@ -120,8 +163,8 @@
 @media (max-width: 768px) {
   .liked-songs-page {
     padding: 16px !important;
-    padding-top: 60px !important;     /* Clears top nav / AI chat icon */
-    padding-bottom: 180px !important; /* Clears bottom player */
+    padding-top: 60px !important;     
+    padding-bottom: 180px !important; 
   }
 
   .liked-header {

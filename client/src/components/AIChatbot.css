@@ -128,3 +128,28 @@
   background: #3e3e3e;
   color: #b3b3b3;
 }
+
+/* --- MOBILE COMPACT AI CHATBOT STYLING --- */
+@media (max-width: 768px) {
+  .ai-chatbot-wrapper {
+    position: fixed !important;
+    top: 10px !important;
+    left: 10px !important;
+    right: unset !important;
+    bottom: unset !important;
+    z-index: 10000 !important;
+  }
+
+  /* Make the floating chat button smaller */
+  .ai-chatbot-wrapper .chat-toggle-btn {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  /* Scale down the open chat window dimensions so it fits mobile screens perfectly */
+  .ai-chatbot-wrapper .chat-window {
+    width: 270px !important;
+    height: 360px !important;
+    max-width: calc(100vw - 20px);
+  }
+}

@@ -3,31 +3,25 @@ import Navbar from '../components/Navbar';
 import SongCard from '../components/SongCard';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Heart, ListMusic } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import './Library.css';
 import './Home.css';
 
 const Library = () => {
   const [likedSongs, setLikedSongs] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    const fetchLibraryData = async () => {
+    const fetchLikedSongs = async () => {
       if (!user) return; 
       try {
-        const [likedRes, playlistsRes] = await Promise.all([
-          api.get('/songs/liked'),
-          api.get('/playlists') 
-        ]);
-        
-        setLikedSongs(likedRes.data);
-        setPlaylists(playlistsRes.data);
+        const { data } = await api.get('/songs/liked');
+        setLikedSongs(data);
       } catch (error) {
-        console.error("Error fetching library data", error);
+        console.error("Error fetching liked songs", error);
       }
     };
-    fetchLibraryData();
+    fetchLikedSongs();
   }, [user]);
 
   if (!user) {
@@ -63,26 +57,7 @@ const Library = () => {
       </div>
       
       <div className="library-content">
-        
-        {playlists.length > 0 && (
-          <div style={{ marginBottom: '40px' }}>
-            <h3 style={{ color: 'white', marginBottom: '20px' }}>Your Playlists</h3>
-            <div className="cards-grid">
-              {playlists.map((playlist) => (
-                <div key={playlist._id} className="song-card">
-                  <div className="song-image-container" style={{ backgroundColor: '#282828', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <ListMusic size={48} color="#b3b3b3" />
-                  </div>
-                  <div className="song-text-info" style={{ width: '100%' }}>
-                    <p className="card-title">{playlist.name}</p>
-                    <p className="card-artist">By {user.name}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
+        {/* Liked Songs Section Only */}
         <h3 style={{ color: 'white', marginBottom: '20px' }}>Liked Songs</h3>
         <div className="cards-grid">
           {likedSongs.length === 0 ? (
@@ -97,7 +72,6 @@ const Library = () => {
             ))
           )}
         </div>
-        
       </div>
     </div>
   );

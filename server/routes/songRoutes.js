@@ -15,21 +15,21 @@ import { upload } from '../middleware/uploadMiddleware.js';
 const router = express.Router();
 
 // ------------------------------------------------------------------
-// APP INTERFACE ROUTES
+// PUBLIC USER ROUTES (No login required so guests can browse & search)
 // ------------------------------------------------------------------
-
 // Home page categories (Trending, Hits, etc.)
-router.get('/categories', protect, getSongCategories);
-
-// ✨ Now powered by your Advanced Collaborative Filtering Engine!
-router.get('/recommendations', protect, getRecommendations);
+router.get('/categories', getSongCategories);
 
 // AI-powered Search with Groq Typo-Fixer
-router.get('/search', protect, searchSongs);
+router.get('/search', searchSongs);
 
 // ------------------------------------------------------------------
-// USER LIBRARY ROUTES
+// PROTECTED USER ROUTES (Login required)
 // ------------------------------------------------------------------
+// Powered by your Advanced Collaborative Filtering Engine
+router.get('/recommendations', protect, getRecommendations);
+
+// User Liked Songs Library
 router.get('/liked', protect, getLikedSongs);
 router.post('/like', protect, toggleLikeSong);
 

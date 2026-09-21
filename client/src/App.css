@@ -1,0 +1,33 @@
+.app-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 1fr 90px;
+  grid-template-areas:
+    "sidebar main"
+    "player player";
+  height: 100vh;
+}
+
+.main-content {
+  grid-area: main;
+  background-color: #121212;
+  border-radius: 8px;
+  margin-top: 8px;
+  overflow-y: auto;
+  position: relative;
+}
+/* Add to bottom of App.css */
+@media (max-width: 768px) {
+  .app-container {
+    display: block; /* Removes the CSS Grid column for the sidebar */
+  }
+  
+  .sidebar {
+    display: none; /* Hides desktop sidebar */
+  }
+  
+  .main-content {
+    height: 100vh;
+    padding-bottom: 160px; /* Space for Bottom Player + Mobile Nav */
+  }
+}

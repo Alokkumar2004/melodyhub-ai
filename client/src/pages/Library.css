@@ -1,0 +1,32 @@
+.library-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.library-header {
+  background: linear-gradient(to bottom, #5038a0, #121212);
+  padding: 60px 32px 24px 32px;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.liked-icon-container {
+  width: 192px;
+  height: 192px;
+  background: linear-gradient(135deg, #450af5, #c4efd9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.library-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.library-content {
+  padding: 24px 32px;
+}

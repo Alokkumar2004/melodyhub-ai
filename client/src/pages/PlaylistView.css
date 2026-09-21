@@ -1,0 +1,395 @@
+.playlist-view {
+  padding: 24px 32px;
+  color: white;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #202020 0%, #121212 400px);
+  padding-bottom: 120px;
+}
+
+.playlist-loading {
+  color: #b3b3b3;
+  padding: 60px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.playlist-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.playlist-cover-placeholder {
+  width: 192px;
+  height: 192px;
+  background-color: #282828;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+}
+
+.playlist-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.playlist-type {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.playlist-header-info h1 {
+  font-size: 48px;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.playlist-desc {
+  font-size: 14px;
+  color: #a7a7a7;
+  margin: 0;
+}
+
+.playlist-meta {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.playlist-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.play-all-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #1db954;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s ease, background-color 0.1s ease;
+  padding-left: 3px;
+}
+
+.play-all-btn:hover {
+  transform: scale(1.05);
+  background-color: #1ed760;
+}
+
+.delete-playlist-btn {
+  background: transparent;
+  border: 1px solid #535353;
+  color: #b3b3b3;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-playlist-btn:hover {
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+  background-color: rgba(255, 77, 77, 0.05);
+}
+
+.playlist-songs-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-table-header,
+.song-table-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 60px 50px;
+  align-items: center;
+}
+
+.song-table-header {
+  padding: 0 16px 8px 16px;
+  color: #b3b3b3;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #282828;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.divider-line {
+  height: 16px;
+}
+
+.song-table-row {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.song-table-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.col-num {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+
+.col-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.row-song-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.row-song-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.row-artist {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.col-duration {
+  color: #b3b3b3;
+  font-size: 14px;
+  text-align: right;
+}
+
+.col-action {
+  display: flex;
+  justify-content: center;
+}
+
+.remove-song-btn {
+  background: transparent;
+  border: none;
+  color: #b3b3b3;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.song-table-row:hover .remove-song-btn {
+  opacity: 1;
+}
+
+.remove-song-btn:hover {
+  color: #ff4d4d !important;
+}
+
+.empty-playlist-msg {
+  padding: 40px;
+  text-align: center;
+  color: #b3b3b3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-playlist-msg p {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+/* Inline Rename Styles */
+.playlist-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rename-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #b3b3b3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.rename-toggle-btn:hover {
+  color: #ffffff;
+}
+
+.inline-rename-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.rename-input {
+  background-color: #282828;
+  border: 1px solid #1db954;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 900;
+  padding: 4px 12px;
+  outline: none;
+  width: 100%;
+  max-width: 400px;
+}
+
+.rename-action-btn {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.rename-action-btn.save {
+  background-color: #1db954;
+  color: #000000;
+}
+.rename-action-btn.save:hover {
+  transform: scale(1.05);
+}
+
+.rename-action-btn.cancel {
+  background-color: #282828;
+  color: #b3b3b3;
+}
+.rename-action-btn.cancel:hover {
+  background-color: #3e3e3e;
+  color: #ffffff;
+}
+
+/* Custom Modal Overlay & Box Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeInModal 0.2s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-box {
+  background-color: #282828;
+  padding: 28px;
+  border-radius: 12px;
+  width: 380px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  border: 1px solid #3e3e3e;
+}
+
+.modal-icon-wrapper {
+  background-color: rgba(255, 77, 77, 0.1);
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.modal-box h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.modal-box p {
+  font-size: 14px;
+  color: #b3b3b3;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s;
+}
+
+.modal-btn.cancel {
+  background-color: #3e3e3e;
+  color: #ffffff;
+}
+.modal-btn.cancel:hover {
+  background-color: #535353;
+}
+
+.modal-btn.confirm-danger {
+  background-color: #ff4d4d;
+  color: #ffffff;
+}
+.modal-btn.confirm-danger:hover {
+  background-color: #ff3333;
+  transform: scale(1.02);
+}

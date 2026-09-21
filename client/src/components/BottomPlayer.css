@@ -1,0 +1,156 @@
+.bottom-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background-color: #181818;
+  border-top: 1px solid #282828;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1000;
+  color: white;
+}
+
+/* Left Section: Image and Text */
+.player-left {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  gap: 14px;
+}
+
+.player-cover {
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.player-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.player-artist {
+  font-size: 12px;
+  color: #b3b3b3;
+  margin-top: 4px;
+}
+
+/* Center Section: Controls and Progress Bar */
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  max-width: 722px;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+}
+
+.control-btn:hover svg {
+  color: white !important;
+}
+
+.play-pause-btn {
+  background-color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.1s ease;
+}
+
+.play-pause-btn:hover {
+  transform: scale(1.05);
+}
+
+.play-pause-btn svg {
+  color: black !important;
+}
+
+/* Progress Bar Container */
+.progress-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.time-text {
+  font-size: 11px;
+  color: #a7a7a7;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Customizing Range Sliders */
+.progress-bar, .volume-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Volume bar keeps static background, Progress bar uses dynamic React background */
+.volume-bar {
+  background: #4d4d4d;
+  transition: background 0.2s ease;
+}
+
+.volume-bar:hover {
+  background: #1db954;
+}
+
+/* The thumb (dot) on the slider */
+.progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  opacity: 1; /* Keeps the dot permanently visible */
+}
+
+/* Right Section: Volume */
+.player-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30%;
+  gap: 8px;
+}
+
+.volume-bar {
+  width: 100px;
+}

@@ -1,0 +1,18 @@
+# Ignore Node Modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Ignore Environment Variables (Security)
+.env
+server/.env
+client/.env
+
+# Ignore uploaded audio/image files so they don't bloat GitHub
+server/uploads/audio/*
+server/uploads/images/*
+!server/uploads/audio/.keep
+!server/uploads/images/.keep
+
+# Build folders
+client/build/

@@ -1,0 +1,53 @@
+.home-container {
+  height: 100%;
+}
+
+.home-content {
+  padding: 0 24px 24px 24px;
+}
+
+.greeting {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 20px;
+  margin-bottom: 16px;
+  margin-top: 32px;
+}
+
+/* Replace the old .cards-grid with this */
+.category-section {
+  margin-bottom: 40px;
+}
+
+.cards-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+}
+
+/* Hide scrollbar for a cleaner look */
+.cards-row::-webkit-scrollbar {
+  display: none;
+}
+.cards-row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cards-row > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto; /* Prevents cards from shrinking */
+  width: 180px;   /* Fixed width for the cards */
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+  .cards-row > * {
+    width: 140px;
+  }
+}

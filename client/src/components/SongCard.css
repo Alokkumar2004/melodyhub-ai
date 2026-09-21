@@ -1,0 +1,224 @@
+.song-card {
+  background-color: #181818;
+  padding: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 180px;
+  position: relative;
+}
+
+.song-card:hover {
+  background-color: #282828;
+}
+
+.song-image-container {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.song-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.song-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+
+.song-text-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  width: calc(100% - 48px);
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+.card-artist {
+  font-size: 12px;
+  color: #a7a7a7;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Actions Container for Like Button & Menu Wrapper */
+.song-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Stylish Animated Like Button Styles */
+.stylish-like-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  padding: 0;
+}
+
+.stylish-like-btn .heart-icon {
+  color: #b3b3b3;
+  fill: transparent;
+  transition: all 0.2s ease;
+}
+
+.stylish-like-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.stylish-like-btn.liked .heart-icon {
+  color: #1db954;
+  fill: #1db954;
+  filter: drop-shadow(0 0 6px rgba(29, 185, 84, 0.6));
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.stylish-like-btn.animate-pop {
+  animation: heartPop 0.3s ease-in-out;
+}
+
+.song-menu-wrapper {
+  position: relative;
+}
+
+.song-menu-btn {
+  background: transparent;
+  border: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+}
+
+.song-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.song-menu-btn:hover svg {
+  color: #ffffff !important;
+}
+
+.playlist-dropdown {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  width: 200px;
+  background-color: #282828;
+  border-radius: 6px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.7), 0 6px 8px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  padding: 6px;
+  border: 1px solid #3e3e3e;
+}
+
+.dropdown-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: #b3b3b3;
+  padding: 8px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #3e3e3e;
+  margin: 4px 0;
+}
+
+.dropdown-list {
+  max-height: 160px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dropdown-list::-webkit-scrollbar {
+  width: 6px;
+}
+.dropdown-list::-webkit-scrollbar-thumb {
+  background: #535353;
+  border-radius: 3px;
+}
+
+.dropdown-item {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #3e3e3e;
+}
+
+.dropdown-empty {
+  font-size: 12px;
+  color: #b3b3b3;
+  padding: 12px 10px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.dropdown-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #1db954;
+  padding: 10px;
+  font-weight: 600;
+  background-color: rgba(29, 185, 84, 0.1);
+  border-radius: 4px;
+}

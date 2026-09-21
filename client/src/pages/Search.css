@@ -1,0 +1,102 @@
+.search-container {
+  background-color: #121212;
+  min-height: 100vh;
+  color: #ffffff;
+  padding-bottom: 120px;
+}
+
+.search-content {
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Modern Glowing Search Bar */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  background-color: #242424;
+  border-radius: 500px;
+  padding: 14px 20px;
+  gap: 14px;
+  max-width: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.search-bar-container:focus-within {
+  border-color: #1db954;
+  background-color: #2a2a2a;
+  box-shadow: 0 4px 25px rgba(29, 185, 84, 0.2);
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 15px;
+  width: 100%;
+}
+
+.search-input::placeholder {
+  color: #a7a7a7;
+}
+
+/* Gorgeous Horizontal Genre Pills */
+.genre-pills-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 12px 2px;
+  scrollbar-width: none;
+}
+
+.genre-pills-container::-webkit-scrollbar {
+  display: none;
+}
+
+.genre-pill {
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.genre-pill:hover {
+  background-color: #3f3f3f;
+  transform: translateY(-2px);
+}
+
+.genre-pill.active {
+  background: linear-gradient(135deg, #1db954, #1ed760);
+  color: #000000;
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 8px;
+  letter-spacing: -0.01em;
+}
+
+/* Responsive Grid layout for songs */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  width: 100%;
+}

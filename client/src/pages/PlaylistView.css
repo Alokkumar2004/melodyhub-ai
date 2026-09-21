@@ -3,7 +3,7 @@
   color: white;
   min-height: 100vh;
   background: linear-gradient(to bottom, #202020 0%, #121212 400px);
-  padding-bottom: 120px;
+  padding-bottom: 180px; /* Leaves clear space for bottom player and mobile nav */
 }
 
 .playlist-loading {
@@ -29,6 +29,7 @@
   justify-content: center;
   border-radius: 8px;
   box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
 }
 
 .playlist-header-info {
@@ -156,6 +157,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  overflow: hidden;
 }
 
 .row-song-img {
@@ -163,23 +165,31 @@
   height: 40px;
   border-radius: 4px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .row-song-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  overflow: hidden;
 }
 
 .row-title {
   font-size: 14px;
   font-weight: 500;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .row-artist {
   font-size: 12px;
   color: #b3b3b3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .col-duration {
@@ -229,6 +239,7 @@
   color: white;
   margin: 0;
 }
+
 /* Inline Rename Styles */
 .playlist-title-row {
   display: flex;
@@ -392,4 +403,55 @@
 .modal-btn.confirm-danger:hover {
   background-color: #ff3333;
   transform: scale(1.02);
+}
+
+/* --- MOBILE RESPONSIVENESS (PLAYLIST VIEW) --- */
+@media (max-width: 768px) {
+  .playlist-view {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: visible !important;
+    padding: 16px !important;
+    padding-top: 50px !important;     /* Clears top elements / chat widget */
+    padding-bottom: 180px !important; /* Leaves room for bottom player & mobile nav */
+  }
+
+  .playlist-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+  }
+
+  .playlist-cover-placeholder {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .playlist-header-info h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .rename-input {
+    font-size: 1.5rem !important;
+    max-width: 250px !important;
+  }
+
+  /* Make remove buttons always visible on mobile for easier touch interaction */
+  .remove-song-btn {
+    opacity: 1 !important;
+  }
+
+  .song-table-header {
+    display: none !important; /* Hides table headers on narrow screens to save space */
+  }
+
+  .song-table-row {
+    grid-template-columns: 32px 1fr 40px !important;
+    padding: 8px 6px !important;
+  }
+
+  .col-duration {
+    display: none !important; /* Hides duration timestamp on mobile to prevent squishing */
+  }
 }

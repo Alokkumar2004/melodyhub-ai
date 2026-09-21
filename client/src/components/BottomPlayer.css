@@ -33,18 +33,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden; /* Ensures long titles don't stretch layout */
 }
 
 .player-title {
   font-size: 14px;
   font-weight: 500;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .player-artist {
   font-size: 12px;
   color: #b3b3b3;
   margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Center Section: Controls and Progress Bar */
@@ -153,4 +160,69 @@
 
 .volume-bar {
   width: 100px;
+}
+
+/* --- MOBILE TWEAKS FOR BOTTOM PLAYER --- */
+@media (max-width: 768px) {
+  .bottom-player {
+    bottom: 60px; /* Leaves room for the Mobile Navigation Bar below it */
+    height: 70px; /* Slightly shorter */
+    padding: 0 10px;
+    background-color: rgba(24, 24, 24, 0.95);
+    backdrop-filter: blur(10px); /* Premium glassmorphism effect */
+  }
+
+  /* Make Left section take most of the room */
+  .player-left {
+    width: 65%;
+    gap: 10px;
+  }
+
+  .player-cover {
+    width: 48px;
+    height: 48px;
+  }
+
+  .player-title {
+    font-size: 13px;
+  }
+
+  /* Hide Volume on mobile entirely */
+  .player-right {
+    display: none;
+  }
+
+  /* Shift Controls to the right */
+  .player-center {
+    width: 35%;
+    align-items: flex-end;
+  }
+
+  .player-controls {
+    margin-bottom: 0;
+    gap: 16px;
+  }
+
+  /* Premium Trick: Position the progress bar on the very top edge of the player */
+  .progress-container {
+    position: absolute;
+    top: -2px; /* Rests on the top border */
+    left: 0;
+    width: 100%;
+    gap: 0;
+  }
+
+  .time-text {
+    display: none; /* Hide numbers to save space */
+  }
+
+  .progress-bar {
+    height: 2px; /* Ultra-thin progress line */
+    border-radius: 0;
+  }
+  
+  /* Hide the slider dot on mobile */
+  .progress-bar::-webkit-slider-thumb {
+    display: none; 
+  }
 }

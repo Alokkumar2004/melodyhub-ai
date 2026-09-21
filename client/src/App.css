@@ -1,3 +1,4 @@
+/* --- DESKTOP LAYOUT --- */
 .app-container {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -6,20 +7,30 @@
     "sidebar main"
     "player player";
   height: 100vh;
+  background-color: #000000; /* Dark background behind the curved main content */
+  overflow: hidden; /* Prevents the entire page from scrolling */
 }
 
 .main-content {
   grid-area: main;
   background-color: #121212;
-  border-radius: 8px;
+  border-radius: 8px 0 0 0; /* Spotify-style curve on the top-left */
   margin-top: 8px;
-  overflow-y: auto;
+  overflow-y: auto; /* Allows only this section to scroll */
   position: relative;
+  padding: 1.5rem;
 }
-/* Add to bottom of App.css */
+
+/* --- MOBILE LAYOUT (Screens smaller than 768px) --- */
 @media (max-width: 768px) {
   .app-container {
-    display: block; /* Removes the CSS Grid column for the sidebar */
+    /* Redefine the grid for mobile: 1 column, and adjust bottom row height */
+    grid-template-columns: 1fr;
+    /* The bottom row is 150px to fit BOTH the 90px music player and a 60px Mobile Nav */
+    grid-template-rows: 1fr 150px; 
+    grid-template-areas:
+      "main"
+      "player"; 
   }
   
   .sidebar {
@@ -27,7 +38,14 @@
   }
   
   .main-content {
-    height: 100vh;
-    padding-bottom: 160px; /* Space for Bottom Player + Mobile Nav */
+    margin-top: 0; /* Remove the top gap on small screens to save space */
+    border-radius: 0; /* Remove rounded corners so it sits flush against the edges */
+    padding: 1rem;
+    
+    /* 
+      Note: You do NOT need 'height: 100vh' or 'padding-bottom: 160px' here anymore. 
+      Because of CSS Grid, the parent .app-container automatically forces this 
+      section to fill exactly the right amount of space without overflowing!
+    */
   }
 }

@@ -1,13 +1,54 @@
+/* --- MAIN CONTAINER --- */
 .library-container {
   height: 100%;
   overflow-y: auto;
+  background-color: #121212;
+  padding-bottom: 120px; /* Crucial: leaves room for the bottom player */
 }
 
+/* --- TOP BAR (Create Playlist) --- */
+.library-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  margin-top: 10px;
+}
+
+.library-top-bar h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.create-playlist-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  color: #b3b3b3;
+  border: 1px solid #b3b3b3;
+  padding: 8px 16px;
+  border-radius: 20px; /* Premium pill shape */
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-playlist-btn:hover {
+  background-color: white;
+  color: black;
+  border-color: white;
+  transform: scale(1.05);
+}
+
+/* --- HEADER SECTION --- */
 .library-header {
   background: linear-gradient(to bottom, #5038a0, #121212);
-  padding: 60px 32px 24px 32px;
+  padding: 40px 32px 24px 32px;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-end; /* Aligns the text to the bottom of the image */
   gap: 24px;
 }
 
@@ -19,14 +60,83 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  border-radius: 8px; /* Adds a subtle premium curve */
 }
 
 .library-header-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  color: white;
 }
 
+.profile-type {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.profile-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.profile-stats {
+  font-size: 14px;
+  color: #b3b3b3;
+  font-weight: 500;
+}
+
+/* --- CONTENT SECTION --- */
 .library-content {
   padding: 24px 32px;
+}
+
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  .library-container {
+    padding-bottom: 160px; /* Extra room for mobile nav + player */
+  }
+
+  .library-top-bar {
+    padding: 16px;
+  }
+  
+  .library-top-bar h2 {
+    font-size: 1.4rem;
+  }
+
+  .create-playlist-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .library-header {
+    padding: 24px 16px;
+    flex-direction: column; /* Stacks the image on top of the text on mobile */
+    align-items: center;
+    text-align: center;
+  }
+
+  .liked-icon-container {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .liked-icon-container svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .profile-title {
+    font-size: 2.5rem; /* Shrinks the giant title text */
+  }
+
+  .library-content {
+    padding: 16px;
+  }
 }

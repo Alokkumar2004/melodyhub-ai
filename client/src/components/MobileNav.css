@@ -1,37 +1,62 @@
+/* --- MOBILE NAVIGATION BAR --- */
 .mobile-nav {
   display: none; /* Hidden by default on desktop */
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 64px;
-  background-color: rgba(18, 18, 18, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  border-top: 1px solid #282828;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.mobile-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #b3b3b3;
-  text-decoration: none;
-  font-size: 10px;
-  gap: 4px;
-  transition: color 0.2s;
-}
-
-.mobile-nav-item.active,
-.mobile-nav-item:hover {
-  color: #ffffff;
 }
 
 /* Only show on screens smaller than 768px (tablets/phones) */
 @media (max-width: 768px) {
   .mobile-nav {
     display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px); /* Premium glassmorphism effect */
+    z-index: 1001; /* Strictly keeps this above the music player */
+    border-top: 1px solid #282828;
+    justify-content: space-around;
+    align-items: center;
+    
+    /* Support for modern iPhones so the home bar doesn't block buttons */
+    padding-bottom: env(safe-area-inset-bottom); 
+  }
+
+  /* Automatically adjust height if viewing on an iPhone with a notch/home bar */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .mobile-nav {
+      height: calc(64px + env(safe-area-inset-bottom));
+    }
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 11px; /* Slightly bumped up for readability */
+    font-weight: 500;
+    gap: 4px;
+    width: 100%; /* Expands tap target area */
+    height: 100%;
+    transition: color 0.2s ease, transform 0.1s ease;
+  }
+
+  .mobile-nav-item.active,
+  .mobile-nav-item:hover {
+    color: #ffffff;
+  }
+
+  /* Make the icon slightly thicker when it is the active page */
+  .mobile-nav-item.active svg {
+    stroke-width: 2.5px;
+  }
+
+  /* Subtle shrink animation when a user physically taps the button */
+  .mobile-nav-item:active {
+    transform: scale(0.9);
   }
 }

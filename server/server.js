@@ -21,7 +21,8 @@ const app = express();
 app.use(cors({
     origin: [
         'http://localhost:3000', 
-        'https://melodyhub-ai.vercel.app' // <-- Add your Vercel URL here (No trailing slash!)
+        'http://localhost:5173',          // <-- Add this new Vite local port
+        'https://melodyhub-ai.vercel.app' // Your live Vercel site
     ],
     credentials: true
 }));

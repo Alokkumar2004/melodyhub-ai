@@ -3,16 +3,17 @@
   padding: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 180px;
+  width: 100%; /* CRITICAL FIX: Changed from 180px to 100% so it fluidly fits the grid */
   position: relative;
 }
 
 .song-card:hover {
   background-color: #282828;
+  transform: translateY(-4px); /* Adds a premium subtle lift effect on desktop */
 }
 
 .song-image-container {
@@ -221,4 +222,26 @@
   font-weight: 600;
   background-color: rgba(29, 185, 84, 0.1);
   border-radius: 4px;
+}
+
+/* --- MOBILE TWEAKS FOR SONG CARDS --- */
+@media (max-width: 768px) {
+  .song-card {
+    padding: 12px; /* Slightly tighter padding to fit small screens */
+    gap: 8px;
+  }
+
+  .card-title {
+    font-size: 13px;
+  }
+
+  .card-artist {
+    font-size: 11px;
+  }
+
+  /* Increase tap targets for touchscreens */
+  .stylish-like-btn, .song-menu-btn {
+    width: 32px;
+    height: 32px;
+  }
 }

@@ -11,6 +11,10 @@ export const generateMagicName = async (req, res) => {
 
         const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+        // Generate a random seed and timestamp to bypass cache and guarantee unique names
+        const randomSeed = Math.floor(Math.random() * 1000000);
+        const timestamp = Date.now();
+
         let chatCompletion;
         
         // Try primary model first, with fallback to avoid 500 crashes
@@ -19,11 +23,12 @@ export const generateMagicName = async (req, res) => {
                 messages: [
                     { 
                         role: 'system', 
-                        content: 'You are a creative music DJ. Generate a short, catchy, 2-3 word playlist name. Reply with ONLY the name, no quotes, no extra text.' 
+                        content: `You are a creative music DJ. Generate a short, catchy, unique 2-3 word playlist name. Session: ${timestamp}-${randomSeed}. Make it fresh and completely different. Reply with ONLY the name, no quotes, no extra text.` 
                     }
                 ],
                 model: 'llama-3.3-70b-versatile', 
-                temperature: 0.9,
+                temperature: 1.0, // High temperature for maximum variety
+                seed: randomSeed, // Forces non-cached execution
             });
         } catch (primaryError) {
             console.warn("Primary model failed, attempting fallback model...");
@@ -32,10 +37,12 @@ export const generateMagicName = async (req, res) => {
                 messages: [
                     { 
                         role: 'system', 
-                        content: 'You are a creative music DJ. Generate a short, catchy, 2-3 word playlist name. Reply with ONLY the name, no quotes, no extra text.' 
+                        content: `You are a creative music DJ. Generate a short, catchy, unique 2-3 word playlist name. Session: ${timestamp}-${randomSeed}. Reply with ONLY the name, no quotes, no extra text.` 
                     }
                 ],
                 model: 'llama3-8b-8192', 
+                temperature: 1.0,
+                seed: randomSeed,
             });
         }
 

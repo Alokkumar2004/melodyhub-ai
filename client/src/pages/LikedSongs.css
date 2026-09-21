@@ -1,11 +1,16 @@
+/* --- MAIN CONTAINER --- */
 .liked-songs-page {
   padding: 24px 32px;
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
+  height: auto !important;          /* Allows natural page scrolling */
+  min-height: 100vh;
+  overflow-y: visible !important;   /* Prevents the scroll trap */
   box-sizing: border-box;
+  padding-bottom: 180px;            /* Crucial: leaves room for bottom player */
+  background: linear-gradient(to bottom, #202020 0%, #121212 400px);
 }
 
+/* --- HEADER SECTION --- */
 .liked-header {
   display: flex;
   align-items: flex-end;
@@ -24,6 +29,7 @@
   justify-content: center;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0; /* Prevents the icon from getting squished */
 }
 
 .liked-header-info {
@@ -53,12 +59,35 @@
   margin: 0;
 }
 
+/* --- CONTENT GRID & LIST --- */
 .liked-songs-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
 }
 
+/* --- FIX FOR MASSIVE THUMBNAILS --- */
+.liked-songs-grid img {
+  width: 100% !important;
+  max-width: 180px !important; /* Locks card images from blowing up */
+  aspect-ratio: 1 / 1;
+  object-fit: cover !important;
+  border-radius: 4px;
+}
+
+/* If you are rendering rows instead of cards in this view, this forces them to list size */
+.row-song-img,
+.liked-songs-grid .song-table-row img {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  border-radius: 4px;
+  object-fit: cover !important;
+  flex-shrink: 0;
+}
+
+/* --- STATES --- */
 .empty-liked-state {
   display: flex;
   flex-direction: column;
@@ -85,4 +114,29 @@
   color: #b3b3b3;
   font-size: 16px;
   margin-top: 40px;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  .liked-songs-page {
+    padding: 16px !important;
+    padding-top: 60px !important;     /* Clears top nav / AI chat icon */
+    padding-bottom: 180px !important; /* Clears bottom player */
+  }
+
+  .liked-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .liked-icon-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .liked-header-info h1 {
+    font-size: 2.5rem;
+  }
 }

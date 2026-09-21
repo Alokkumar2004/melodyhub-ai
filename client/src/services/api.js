@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api', // Our backend URL
+  baseURL: 'https://melodyhub-ai.onrender.com/api', // Our backend URL
 });
 
 // Automatically add the token to requests whether stored as standalone or inside userInfo

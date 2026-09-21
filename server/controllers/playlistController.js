@@ -23,6 +23,7 @@ export const generateMagicName = async (req, res) => {
                     }
                 ],
                 model: 'llama-3.3-70b-versatile', 
+                temperature: 0.9,
             });
         } catch (primaryError) {
             console.warn("Primary model failed, attempting fallback model...");

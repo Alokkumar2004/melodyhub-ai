@@ -96,18 +96,23 @@
 }
 
 
-/* --- MOBILE RESPONSIVENESS --- */
+/* --- MOBILE RESPONSIVENESS (LIBRARY) --- */
 @media (max-width: 768px) {
   .library-container {
-    padding-bottom: 160px; /* Extra room for mobile nav + player */
+    height: auto !important;          /* Allows natural page expansion like a normal web page */
+    max-height: none !important;      /* Removes any viewport height traps */
+    overflow-y: visible !important;   /* Relies on natural body/window scrolling */
+    padding-top: 15px !important;     
+    padding-bottom: 180px !important; /* Leaves clear space above the music player & nav */
   }
 
   .library-top-bar {
-    padding: 16px;
+    padding: 12px 16px;
+    margin-top: 45px !important; /* Pushes the 'Your Library' title down to clear the top-left chat icon */
   }
   
   .library-top-bar h2 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .create-playlist-btn {
@@ -116,29 +121,28 @@
   }
 
   .library-header {
-    padding: 24px 16px;
-    flex-direction: column; /* Stacks the image on top of the text on mobile */
+    padding: 20px 16px;
+    flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
   .liked-icon-container {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
   }
   
   .liked-icon-container svg {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
   }
 
   .profile-title {
-    font-size: 2.5rem; /* Shrinks the giant title text */
+    font-size: 2.2rem;
   }
 
   .library-content {
     padding: 16px;
-    padding-top: 65px !important; /* Pushes content down so it clears the top profile bar & AI chat icon */
   }
 }
 
@@ -287,9 +291,4 @@
 .inline-submit-btn:hover {
   transform: scale(1.05);
   background-color: #1ed760;
-}
-@media (max-width: 768px) {
-  .library-container, .home-container, .main-content {
-    padding-bottom: 180px !important; /* Prevents the player from covering bottom tracks/songs */
-  }
 }

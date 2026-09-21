@@ -3,15 +3,13 @@ import Navbar from '../components/Navbar';
 import SongCard from '../components/SongCard';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Heart, Plus, ListMusic, Check, Wand2 } from 'lucide-react';
+import { Heart, ListMusic } from 'lucide-react';
 import './Library.css';
 import './Home.css';
 
 const Library = () => {
   const [likedSongs, setLikedSongs] = useState([]);
   const [playlists, setPlaylists] = useState([]);
-  const [isCreating, setIsCreating] = useState(false);
-  const [newPlaylistName, setNewPlaylistName] = useState('');
   const { user } = useAuth();
 
   useEffect(() => {
@@ -32,25 +30,6 @@ const Library = () => {
     fetchLibraryData();
   }, [user]);
 
-  const handleCreateSubmit = async () => {
-    if (!newPlaylistName.trim()) {
-      setIsCreating(false);
-      return;
-    }
-
-    try {
-      const { data } = await api.post('/playlists', { name: newPlaylistName });
-      
-      // Instantly add the new playlist to the UI
-      setPlaylists([...playlists, data]);
-      setNewPlaylistName('');
-      setIsCreating(false);
-    } catch (error) {
-      console.error("Error creating playlist:", error);
-      alert("Failed to create playlist. Check your backend server.");
-    }
-  };
-
   if (!user) {
     return (
       <div className="library-container">
@@ -68,33 +47,8 @@ const Library = () => {
     <div className="library-container">
       <Navbar />
       
-      {/* Top Action Bar with Inline Creation */}
       <div className="library-top-bar">
         <h2 style={{ color: 'white', margin: 0 }}>Your Library</h2>
-        
-        {isCreating ? (
-          <div className="inline-create-container">
-            <div className="inline-input-wrapper">
-              <input
-                type="text"
-                placeholder="Playlist name..."
-                value={newPlaylistName}
-                onChange={(e) => setNewPlaylistName(e.target.value)}
-                autoFocus
-                onKeyDown={(e) => e.key === 'Enter' && handleCreateSubmit()}
-              />
-              <Wand2 size={14} color="#facc15" />
-            </div>
-            <button className="inline-submit-btn" onClick={handleCreateSubmit}>
-              <Check size={16} color="white" />
-            </button>
-          </div>
-        ) : (
-          <button className="create-playlist-btn" onClick={() => setIsCreating(true)}>
-            <Plus size={20} />
-            <span>Create Playlist</span>
-          </button>
-        )}
       </div>
 
       <div className="library-header">
@@ -110,7 +64,6 @@ const Library = () => {
       
       <div className="library-content">
         
-        {/* User Playlists Section */}
         {playlists.length > 0 && (
           <div style={{ marginBottom: '40px' }}>
             <h3 style={{ color: 'white', marginBottom: '20px' }}>Your Playlists</h3>
@@ -130,7 +83,6 @@ const Library = () => {
           </div>
         )}
 
-        {/* Liked Songs Section */}
         <h3 style={{ color: 'white', marginBottom: '20px' }}>Liked Songs</h3>
         <div className="cards-grid">
           {likedSongs.length === 0 ? (

@@ -17,7 +17,6 @@ export const generateMagicName = async (req, res) => {
 
         let chatCompletion;
         
-        // Try primary model first, with fallback to avoid 500 crashes
         try {
             chatCompletion = await groq.chat.completions.create({
                 messages: [
@@ -27,12 +26,11 @@ export const generateMagicName = async (req, res) => {
                     }
                 ],
                 model: 'llama-3.3-70b-versatile', 
-                temperature: 1.0, // High temperature for maximum variety
-                seed: randomSeed, // Forces non-cached execution
+                temperature: 1.0, 
+                seed: randomSeed, 
             });
         } catch (primaryError) {
-            console.warn("Primary model failed, attempting fallback model...");
-            // Fallback attempt if primary model is restricted on your key
+            console.warn("Primary model failed, attempting fallback model...", primaryError?.message);
             chatCompletion = await groq.chat.completions.create({
                 messages: [
                     { 
@@ -51,9 +49,13 @@ export const generateMagicName = async (req, res) => {
 
         res.status(200).json({ name: generatedName });
     } catch (error) {
-        console.error("Groq AI Crash Details:", error?.error || error.message || error);
-        // Fallback name so the user's mobile app never breaks even if Groq fails entirely
-        res.status(200).json({ name: "Chill Mix" });
+        console.error("Groq AI Full Error Breakdown:", error?.response?.data || error?.error || error.message || error);
+        
+        // Randomized fallback pool so it never hardcodes just one single name
+        const fallbacks = ["Late Night Beats", "Electric Sunset", "Cosmic Groove", "Neon Waves", "Infinite Loop", "Chill Mix"];
+        const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        
+        res.status(200).json({ name: randomFallback });
     }
 };
 

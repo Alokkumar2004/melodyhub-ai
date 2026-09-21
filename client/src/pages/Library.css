@@ -138,8 +138,10 @@
 
   .library-content {
     padding: 16px;
+    padding-top: 65px !important; /* Pushes content down so it clears the top profile bar & AI chat icon */
   }
 }
+
 /* --- AI MAGIC NAMER MODAL --- */
 .ai-modal-overlay {
   position: fixed;
@@ -239,6 +241,7 @@
   color: #a7a7a7;
   cursor: not-allowed;
 }
+
 /* --- INLINE PLAYLIST CREATION (Desktop Sidebar Style) --- */
 .inline-create-container {
   display: flex;
@@ -284,4 +287,9 @@
 .inline-submit-btn:hover {
   transform: scale(1.05);
   background-color: #1ed760;
+}
+@media (max-width: 768px) {
+  .library-container, .home-container, .main-content {
+    padding-bottom: 180px !important; /* Prevents the player from covering bottom tracks/songs */
+  }
 }

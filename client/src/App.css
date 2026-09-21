@@ -55,3 +55,8 @@
     display: none !important;
   }
 }
+@media (max-width: 768px) {
+  .library-container, .home-container, .main-content {
+    padding-bottom: 180px !important; /* Prevents the player from covering bottom tracks/songs */
+  }
+}

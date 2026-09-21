@@ -1,6 +1,6 @@
 import express from 'express';
 import { 
-    generateMagicName, // <-- Imported the new AI controller
+    generateMagicName, 
     createPlaylist, 
     getUserPlaylists, 
     getSinglePlaylist, 

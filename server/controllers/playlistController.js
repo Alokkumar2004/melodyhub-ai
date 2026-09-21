@@ -1,30 +1,51 @@
 import Playlist from '../models/Playlist.js';
 import Groq from 'groq-sdk';
 
-// Initialize Groq (Make sure GROQ_API_KEY is in your .env and Render Environment)
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
-// --- NEW: AI Magic Namer Controller ---
+// --- AI Magic Namer Controller ---
 export const generateMagicName = async (req, res) => {
     try {
-        const chatCompletion = await groq.chat.completions.create({
-            messages: [
-                { 
-                    role: 'system', 
-                    content: 'You are a creative music DJ. Generate a short, catchy, 2-3 word playlist name. Reply with ONLY the name, no quotes, no extra text.' 
-                }
-            ],
-            model: 'llama-3.1-8b-instant', 
-        });
+        if (!req.user || !req.user._id) {
+            console.error("AI Magic Name Error: No authenticated user found on request.");
+            return res.status(401).json({ message: 'Not authorized, missing user context' });
+        }
 
-        // Clean up the AI's response to ensure no quotes are included
+        const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+        let chatCompletion;
+        
+        // Try primary model first, with fallback to avoid 500 crashes
+        try {
+            chatCompletion = await groq.chat.completions.create({
+                messages: [
+                    { 
+                        role: 'system', 
+                        content: 'You are a creative music DJ. Generate a short, catchy, 2-3 word playlist name. Reply with ONLY the name, no quotes, no extra text.' 
+                    }
+                ],
+                model: 'llama-3.3-70b-versatile', 
+            });
+        } catch (primaryError) {
+            console.warn("Primary model failed, attempting fallback model...");
+            // Fallback attempt if primary model is restricted on your key
+            chatCompletion = await groq.chat.completions.create({
+                messages: [
+                    { 
+                        role: 'system', 
+                        content: 'You are a creative music DJ. Generate a short, catchy, 2-3 word playlist name. Reply with ONLY the name, no quotes, no extra text.' 
+                    }
+                ],
+                model: 'llama3-8b-8192', 
+            });
+        }
+
         let generatedName = chatCompletion.choices[0]?.message?.content?.trim() || 'Vibe Check';
         generatedName = generatedName.replace(/["']/g, ""); 
 
         res.status(200).json({ name: generatedName });
     } catch (error) {
-        console.error("Groq AI Error:", error);
-        res.status(500).json({ message: 'Failed to generate AI name', error: error.message });
+        console.error("Groq AI Crash Details:", error?.error || error.message || error);
+        // Fallback name so the user's mobile app never breaks even if Groq fails entirely
+        res.status(200).json({ name: "Chill Mix" });
     }
 };
 

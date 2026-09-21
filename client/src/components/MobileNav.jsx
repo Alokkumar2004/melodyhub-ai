@@ -11,20 +11,25 @@ const MobileNav = () => {
   const [playlistName, setPlaylistName] = useState('');
   const [isGenerating, setIsGenerating] = useState(false); // Tracks if AI is loading
 
-  // --- NEW: The AI Generation Function ---
+  // --- The AI Generation Function with Explicit Token Header ---
   const handleGenerateAIName = async () => {
     setIsGenerating(true);
     setPlaylistName('Thinking...'); // Visual feedback for the user
     
     try {
-      // Replace '/playlists/magic-name' with your exact backend Groq AI route!
-      // If you send a POST request with context, change this to api.post(...)
-      const { data } = await api.get('/playlists/magic-name'); 
+      // Pull token explicitly so mobile session auth doesn't drop
+      const token = localStorage.getItem('token');
+      
+      const { data } = await api.get('/playlists/magic-name', {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : undefined
+        }
+      }); 
       
       // Update the input box with the AI's suggestion
       setPlaylistName(data.name || data.suggestion || "My AI Playlist");
     } catch (error) {
-      console.error("AI Naming error:", error);
+      console.error("AI Naming error:", error.response?.data || error.message);
       setPlaylistName("Cool Vibes"); // Fallback if it fails
     } finally {
       setIsGenerating(false);
@@ -71,11 +76,24 @@ const MobileNav = () => {
               disabled={isGenerating} // Lock input while AI is thinking
             />
             
-            {/* FIXED: Wand is now a clickable button! */}
+            {/* Wand Button optimized for mobile touch interaction */}
             <button 
-              onClick={handleGenerateAIName} 
+              type="button"
+              onPointerDown={(e) => {
+                e.preventDefault();
+                if (!isGenerating) {
+                  handleGenerateAIName();
+                }
+              }}
               disabled={isGenerating}
-              style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: 0, display: 'flex' }}
+              style={{ 
+                background: 'transparent', 
+                border: 'none', 
+                cursor: 'pointer', 
+                padding: 0, 
+                display: 'flex',
+                touchAction: 'manipulation' 
+              }}
             >
               {isGenerating ? (
                 <Loader size={14} color="#a7a7a7" className="spin-animation" />
@@ -85,7 +103,18 @@ const MobileNav = () => {
             </button>
           </div>
           
-          <button className="inline-submit-btn" onClick={handleCreateSubmit} disabled={isGenerating}>
+          {/* Submit Checkmark Button optimized for mobile touch interaction */}
+          <button 
+            type="button"
+            className="inline-submit-btn" 
+            onPointerDown={(e) => {
+              e.preventDefault();
+              if (!isGenerating) {
+                handleCreateSubmit();
+              }
+            }} 
+            disabled={isGenerating}
+          >
             <Check size={16} color="white" />
           </button>
         </div>
@@ -105,6 +134,7 @@ const MobileNav = () => {
 
         {/* Create Playlist Nav Button */}
         <button 
+          type="button"
           className={`mobile-nav-item ${isCreating ? 'active' : ''}`} 
           onClick={() => setIsCreating(!isCreating)}
           style={{ background: 'transparent', border: 'none', cursor: 'pointer', outline: 'none' }}

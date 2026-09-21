@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'https://melodyhub-ai.onrender.com/api', // Our backend URL
+  withCredentials: true, // Crucial for maintaining auth credentials across mobile/desktop views
 });
 
 // Automatically add the token to requests whether stored as standalone or inside userInfo

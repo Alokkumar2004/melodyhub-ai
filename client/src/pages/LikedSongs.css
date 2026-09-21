@@ -59,75 +59,72 @@
   margin: 0;
 }
 
-/* --- CONTENT LIST (Premium Row Layout) --- */
+/* --- THE FIX: PROPER CSS GRID FOR CARDS --- */
 .liked-songs-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-}
-
-/* Forces any child component (like SongCard) to behave as a sleek horizontal row */
-.liked-songs-grid > div {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 16px !important;
-  padding: 8px 16px !important;
-  border-radius: 6px !important;
-  background-color: transparent !important;
-  transition: background-color 0.2s ease !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 24px !important;
   width: 100% !important;
-  box-sizing: border-box !important;
+}
+
+/* Restores the components to proper vertical cards */
+.liked-songs-grid > * {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  background-color: #181818 !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  transition: background-color 0.3s ease !important;
   cursor: pointer;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  gap: 16px !important;
 }
 
-.liked-songs-grid > div:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+.liked-songs-grid > *:hover {
+  background-color: #282828 !important;
 }
 
-/* Perfect square list thumbnails */
+/* Perfectly squares the thumbnails inside the grid cards */
 .liked-songs-grid img {
-  width: 48px !important;
-  height: 48px !important;
-  min-width: 48px !important;
-  min-height: 48px !important;
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
   object-fit: cover !important;
-  border-radius: 4px !important;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
-  margin: 0 !important; 
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  margin: 0 !important;
 }
 
-/* Formats the text wrapper inside the row */
-.liked-songs-grid > div > div {
+/* Fixes text alignment underneath the image */
+.liked-songs-grid > * > div {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
-  justify-content: center !important;
+  width: 100% !important;
   gap: 4px !important;
-  overflow: hidden;
-}
-
-/* Ensures titles and artists truncate cleanly if they are too long */
-.liked-songs-grid h3, 
-.liked-songs-grid p {
-  margin: 0 !important;
-  text-align: left !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  width: 100%;
 }
 
 .liked-songs-grid h3 {
-  font-size: 15px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
   color: #ffffff !important;
-  font-weight: 500 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
 }
 
 .liked-songs-grid p {
-  font-size: 13px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
   color: #b3b3b3 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
 }
 
 /* --- STATES --- */
@@ -181,5 +178,11 @@
 
   .liked-header-info h1 {
     font-size: 2.5rem;
+  }
+  
+  /* Make grid columns smaller for mobile screens */
+  .liked-songs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 16px !important;
   }
 }
